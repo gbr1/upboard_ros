@@ -21,11 +21,5 @@
 # THE SOFTWARE.
 #
 #
-uint8 ALL=0
-uint8 BLUE=1
-uint8 YELLOW=2
-uint8 GREEN=3
-uint8 RED=4
-
-uint8 led
-bool value
+Header header
+Led[] leds

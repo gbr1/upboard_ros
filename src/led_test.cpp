@@ -22,123 +22,125 @@
  * THE SOFTWARE.
  */
 #include <ros/ros.h>
+#include <upboard_ros/Leds.h>
 #include <upboard_ros/Led.h>
 
 int main(int argc, char **argv){
     ros::init(argc, argv, "leds_test_node");
     ros::NodeHandle nh;
-    ros::Publisher led_pub = nh.advertise<upboard_ros::Led>("/upboard/leds", 10);
+    ros::Publisher leds_pub = nh.advertise<upboard_ros::Leds>("/upboard/leds", 10);
 
-    upboard_ros::Led msg;
-    bool s=false;
+    upboard_ros::Leds msg;
+    upboard_ros::Led ledmsg;
+
     while(ros::ok()){
         for(int i=0; i<10; i++){
             msg.header.stamp=ros::Time::now();
             msg.header.frame_id="base_link";
-            msg.led=msg.ALL;
-            msg.value=true;
-            led_pub.publish(msg);
+
+            ledmsg.led=ledmsg.ALL;
+            ledmsg.value=true;
+
+            msg.leds.push_back(ledmsg);
+            leds_pub.publish(msg);
             ros::Duration(0.1).sleep();
             ros::spinOnce();
+            msg.leds.clear();
+
             msg.header.stamp=ros::Time::now();
             msg.header.frame_id="base_link";
-            msg.led=msg.ALL;
-            msg.value=false;
-            led_pub.publish(msg);
+            ledmsg.led=ledmsg.ALL;
+            ledmsg.value=false;
+            msg.leds.push_back(ledmsg);
+            leds_pub.publish(msg);
             ros::Duration(0.5).sleep();
             ros::spinOnce();
+            msg.leds.clear();
         }
         for(int i=0; i<10; i++){
-            //blue on
+            //blue <->
             msg.header.stamp=ros::Time::now();
             msg.header.frame_id="base_link";
-            msg.led=msg.BLUE;
-            msg.value=true;
-            led_pub.publish(msg);
+            ledmsg.led=ledmsg.BLUE;
+            ledmsg.value=true;
+            msg.leds.push_back(ledmsg);
+            ledmsg.led=ledmsg.YELLOW;
+            ledmsg.value=false;
+            msg.leds.push_back(ledmsg);
+            leds_pub.publish(msg);
             ros::Duration(0.1).sleep();
             ros::spinOnce();
-            //blue off
+            msg.leds.clear();
+
+            //yellow ->
             msg.header.stamp=ros::Time::now();
             msg.header.frame_id="base_link";
-            msg.led=msg.BLUE;
-            msg.value=false;
-            led_pub.publish(msg);
-            ros::spinOnce();
-            //yellow on
-            msg.header.stamp=ros::Time::now();
-            msg.header.frame_id="base_link";
-            msg.led=msg.YELLOW;
-            msg.value=true;
-            led_pub.publish(msg);
+            ledmsg.led=ledmsg.YELLOW;
+            ledmsg.value=true;
+            msg.leds.push_back(ledmsg);
+            ledmsg.led=ledmsg.BLUE;
+            ledmsg.value=false;
+            msg.leds.push_back(ledmsg);
+            leds_pub.publish(msg);
             ros::Duration(0.1).sleep();
             ros::spinOnce();
-            //yellow off
+            msg.leds.clear();
+
+            //green ->
             msg.header.stamp=ros::Time::now();
             msg.header.frame_id="base_link";
-            msg.led=msg.YELLOW;
-            msg.value=false;
-            led_pub.publish(msg);
-            ros::spinOnce();
-            //green on
-            msg.header.stamp=ros::Time::now();
-            msg.header.frame_id="base_link";
-            msg.led=msg.GREEN;
-            msg.value=true;
-            led_pub.publish(msg);
+            ledmsg.led=ledmsg.GREEN;
+            ledmsg.value=true;
+            msg.leds.push_back(ledmsg);
+            ledmsg.led=ledmsg.YELLOW;
+            ledmsg.value=false;
+            msg.leds.push_back(ledmsg);
+            leds_pub.publish(msg);
             ros::Duration(0.1).sleep();
             ros::spinOnce();
-            //green off
+            msg.leds.clear();
+
+            // red <->
             msg.header.stamp=ros::Time::now();
             msg.header.frame_id="base_link";
-            msg.led=msg.GREEN;
-            msg.value=false;
-            led_pub.publish(msg);
-            ros::spinOnce();
-            //red on
-            msg.header.stamp=ros::Time::now();
-            msg.header.frame_id="base_link";
-            msg.led=msg.RED;
-            msg.value=true;
-            led_pub.publish(msg);
+            ledmsg.led=ledmsg.RED;
+            ledmsg.value=true;
+            msg.leds.push_back(ledmsg);
+            ledmsg.led=ledmsg.GREEN;
+            ledmsg.value=false;
+            msg.leds.push_back(ledmsg);
+            leds_pub.publish(msg);
             ros::Duration(0.1).sleep();
             ros::spinOnce();
-            //red off
+            msg.leds.clear();
+
+            //green <-
             msg.header.stamp=ros::Time::now();
             msg.header.frame_id="base_link";
-            msg.led=msg.RED;
-            msg.value=false;
-            led_pub.publish(msg);
-            ros::spinOnce();
-            //green on
-            msg.header.stamp=ros::Time::now();
-            msg.header.frame_id="base_link";
-            msg.led=msg.GREEN;
-            msg.value=true;
-            led_pub.publish(msg);
+            ledmsg.led=ledmsg.GREEN;
+            ledmsg.value=true;
+            msg.leds.push_back(ledmsg);
+            ledmsg.led=ledmsg.RED;
+            ledmsg.value=false;
+            msg.leds.push_back(ledmsg);
+            leds_pub.publish(msg);
             ros::Duration(0.1).sleep();
             ros::spinOnce();
-             //green off
+            msg.leds.clear();
+
+            //yellow <-
             msg.header.stamp=ros::Time::now();
             msg.header.frame_id="base_link";
-            msg.led=msg.GREEN;
-            msg.value=false;
-            led_pub.publish(msg);
-            ros::spinOnce();
-            //yellow on
-            msg.header.stamp=ros::Time::now();
-            msg.header.frame_id="base_link";
-            msg.led=msg.YELLOW;
-            msg.value=true;
-            led_pub.publish(msg);
+            ledmsg.led=ledmsg.YELLOW;
+            ledmsg.value=true;
+            msg.leds.push_back(ledmsg);
+            ledmsg.led=ledmsg.GREEN;
+            ledmsg.value=false;
+            msg.leds.push_back(ledmsg);
+            leds_pub.publish(msg);
             ros::Duration(0.1).sleep();
             ros::spinOnce();
-            //yellow off
-            msg.header.stamp=ros::Time::now();
-            msg.header.frame_id="base_link";
-            msg.led=msg.YELLOW;
-            msg.value=false;
-            led_pub.publish(msg);
-            ros::spinOnce();
+            msg.leds.clear();
         }
 
     }

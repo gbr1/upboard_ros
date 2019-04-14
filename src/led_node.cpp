@@ -22,7 +22,7 @@
  * THE SOFTWARE.
  */
 #include <ros/ros.h>
-#include <upboard_ros/Led.h>
+#include <upboard_ros/Leds.h>
 
 
 void setLed(std::string led_name, int status){
@@ -43,26 +43,29 @@ void setLeds(int status){
     setLed("red",status);
 }
 
-void ledsCallback(const upboard_ros::Led & msg){
-    uint8_t led = msg.led;
-    switch(led){
-        case 0:
-            setLeds(msg.value);
-            break;
-        case 1:
-            setLed("blue",msg.value);
-            break;
-        case 2:
-            setLed("yellow",msg.value);
-            break;
-        case 3:
-            setLed("green",msg.value);
-            break;
-        case 4:
-            setLed("red",msg.value);
-            break;
-        default:
-            break;
+void ledsCallback(const upboard_ros::Leds & msg){
+    for (int i=0; i<msg.leds.size(); i++){
+        uint8_t led = msg.leds[i].led;
+        uint8_t value = msg.leds[i].value;
+        switch(led){
+            case 0:
+                setLeds(value);
+                break;
+            case 1:
+                setLed("blue",value);
+                break;
+            case 2:
+                setLed("yellow",value);
+                break;
+            case 3:
+                setLed("green",value);
+                break;
+            case 4:
+                setLed("red",value);
+                break;
+            default:
+                break;
+        }
     }
 }
 
