@@ -50,4 +50,6 @@
 <exec_depend>message_generation</exec_depend>
 <exec_depend>roscpp</exec_depend>
 <exec_depend>std_msgs</exec_depend>
+<build_depend>mraa</build_depend>
+
 </package>

@@ -77,6 +77,7 @@ add_executable(led_node
 )
 add_dependencies(led_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(led_node
+  mraa
   ${catkin_LIBRARIES}
 )
 
