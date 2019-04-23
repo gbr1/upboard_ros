@@ -33,18 +33,6 @@ mraa::Led yellow("yellow");
 mraa::Led green("green");
 mraa::Led red("red");
 
-
-void setLed(std::string led_name, int status){
-    std::string led_cmd="echo ";
-    std::stringstream ss;
-    ss<<status;
-    led_cmd+=ss.str();
-    led_cmd+=" > /sys/class/leds/upboard\:";
-    led_cmd+=led_name;
-    led_cmd+="\:/brightness";
-    system(led_cmd.c_str());
-}
-
 void setLeds(int status){
     blue.setBrightness(status);
     yellow.setBrightness(status);
