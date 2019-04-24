@@ -23,3 +23,4 @@
 #
 upboard_ros:
   DigitalOut: [22,32]
+  DigitalIn: [24,26]
