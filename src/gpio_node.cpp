@@ -117,8 +117,6 @@ int main(int argc, char **argv){
     ros::init(argc, argv, "upboard_ros/gpio_node");
     ros::NodeHandle nh;
     
-    /* rostopic pub /upboard/gpio/write upboard_ros/ListGpio "{header: auto, gpio:[{pin: 22, value: 0}]}" --once */
-    
     //rate parameter
     if (nh.getParam("upboard_ros/frequency", frequency)){
         ROS_INFO("Node rate is %f Hz",frequency);
