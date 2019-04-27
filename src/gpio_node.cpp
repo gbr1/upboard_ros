@@ -198,13 +198,23 @@ int main(int argc, char **argv){
     }
 
     
-    //set all outputs to 0
+    //set all outputs to 0 and deallocate gpio
     for (int i=0; i<listgpio_output.size(); i++){
         try{
             listgpio_output[i]->write(0);
+            delete listgpio_output[i];
         }
         catch(std::exception& e){
             ROS_ERROR("%s",e.what());
+        }
+    }
+
+    for (int i=0; i<listgpio_input.size(); i++){
+        try{
+            delete listgpio_input[i];
+        }
+        catch(std::exception& e){
+            ROS_ERROR("%s", e.what());
         }
     }
     

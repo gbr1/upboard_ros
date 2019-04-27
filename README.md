@@ -21,10 +21,10 @@ Manual test:
 2. In a new terminal:<br>
 `rosrun upboard_ros led_node`<br>
 3. In a new terminal:<br>
-to turn on all leds:<br>
-`rostopic pub /upboard/leds upboard_ros/Leds "{header: auto, leds:[led: 0, value: 1]}" --once`<br>
-to turn off all leds:<br>
-`rostopic pub /upboard/leds upboard_ros/Leds "{header: auto, leds:[led: 0, value: 0]}" --once`<br>
+to turn on blue led:<br>
+`rostopic pub /upboard/leds upboard_ros/Leds "{header: auto, leds:[{led: 1, value: 1}]}" --once `<br>
+to turn off blue led:<br>
+`rostopic pub /upboard/leds upboard_ros/Leds "{header: auto, leds:[{led: 1, value: 0}]}" --once `<br>
 ## 3. Nodes
 3.1 ***led_node***, allows you to connect to upboard leds
 - **Subcribed**:
@@ -37,8 +37,7 @@ to turn off all leds:<br>
 
 3.2 ***led_test***, allows you to test upboard leds
 - **Published**:
-    - _
-    ***/upboard/leds***<br>
+    - ***/upboard/leds***<br>
 
 
 
