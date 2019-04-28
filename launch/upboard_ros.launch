@@ -23,8 +23,6 @@
   THE SOFTWARE.
 -->
 <launch>
-        
-    <rosparam command="load" file="$(find upboard_ros)/config/example.yaml" />
-    <node pkg="upboard_ros" type="gpio_node" name="gpio" output="screen">
-    </node>
+    <node pkg="upboard_ros" type="led_node" name="upboard_leds" />
+    <include file="$(find upboard_ros)/launch/gpio.launch" />
 </launch>
