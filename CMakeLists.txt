@@ -100,11 +100,19 @@ target_link_libraries(gpio_node
   ${catkin_LIBRARIES}
 )
 
+add_executable(gpio_test
+  src/gpio_test.cpp
+)
+add_dependencies(gpio_test ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(gpio_test
+  ${catkin_LIBRARIES}
+)
+
 #############
 ## Install ##
 #############
 
-install(TARGETS led_node led_test gpio_node
+install(TARGETS led_node led_test gpio_node gpio_test
    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -121,3 +129,5 @@ install(DIRECTORY msg/
 
 install(DIRECTORY config/
    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config )
+
+
