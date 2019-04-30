@@ -25,7 +25,7 @@ void gpioCallback(const upboard_ros::ListGpio & msg){
     while((!found) && (k<msg.gpio.size())){
         if (msg.gpio[k].pin==BUTTON){
             found=true;
-            if (msg.gpio[k].value!=0){
+            if (msg.gpio[k].value==0){
                 blinkrate=FAST;
             } 
             else{
