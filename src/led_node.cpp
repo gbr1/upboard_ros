@@ -24,23 +24,20 @@
 #include <ros/ros.h>
 #include <upboard_ros/Leds.h>
 
+#include "mraa/common.hpp"
+#include "mraa/led.hpp"
 
-void setLed(std::string led_name, int status){
-    std::string led_cmd="echo ";
-    std::stringstream ss;
-    ss<<status;
-    led_cmd+=ss.str();
-    led_cmd+=" > /sys/class/leds/upboard\:";
-    led_cmd+=led_name;
-    led_cmd+="\:/brightness";
-    system(led_cmd.c_str());
-}
+
+mraa::Led blue("blue");
+mraa::Led yellow("yellow");
+mraa::Led green("green");
+mraa::Led red("red");
 
 void setLeds(int status){
-    setLed("blue",status);
-    setLed("yellow",status);
-    setLed("green",status);
-    setLed("red",status);
+    blue.setBrightness(status);
+    yellow.setBrightness(status);
+    green.setBrightness(status);
+    red.setBrightness(status);
 }
 
 void ledsCallback(const upboard_ros::Leds & msg){
@@ -52,16 +49,16 @@ void ledsCallback(const upboard_ros::Leds & msg){
                 setLeds(value);
                 break;
             case 1:
-                setLed("blue",value);
+                blue.setBrightness(value);
                 break;
             case 2:
-                setLed("yellow",value);
+                yellow.setBrightness(value);
                 break;
             case 3:
-                setLed("green",value);
+                green.setBrightness(value);
                 break;
             case 4:
-                setLed("red",value);
+                red.setBrightness(value);
                 break;
             default:
                 break;

@@ -38,6 +38,8 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## Generate messages in the 'msg' folder
 add_message_files(FILES
+  ListGpio.msg
+  Gpio.msg
   Leds.msg
   Led.msg
 )
@@ -77,6 +79,7 @@ add_executable(led_node
 )
 add_dependencies(led_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 target_link_libraries(led_node
+  mraa
   ${catkin_LIBRARIES}
 )
 
@@ -88,11 +91,28 @@ target_link_libraries(led_test
   ${catkin_LIBRARIES}
 )
 
+add_executable(gpio_node
+  src/gpio_node.cpp
+)
+add_dependencies(gpio_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(gpio_node
+  mraa
+  ${catkin_LIBRARIES}
+)
+
+add_executable(gpio_test
+  src/gpio_test.cpp
+)
+add_dependencies(gpio_test ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
+target_link_libraries(gpio_test
+  ${catkin_LIBRARIES}
+)
+
 #############
 ## Install ##
 #############
 
-install(TARGETS led_node led_test
+install(TARGETS led_node led_test gpio_node gpio_test
    ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
    RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
@@ -106,3 +126,8 @@ install(DIRECTORY src/
 
 install(DIRECTORY msg/
    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/msg )
+
+install(DIRECTORY config/
+   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION}/config )
+
+
